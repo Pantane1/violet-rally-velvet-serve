@@ -107,8 +107,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-3 text-xs text-primary-foreground/60 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} {site.brand.name}. All rights
-            reserved.
+            © {new Date().getFullYear()} {site.brand.name}. All rights reserved.
           </p>
           <p className="font-display italic">{site.brand.tagline}</p>
         </div>

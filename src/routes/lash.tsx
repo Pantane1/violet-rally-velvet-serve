@@ -33,6 +33,13 @@ export const Route = createFileRoute("/lash")({
   component: LashPage,
 });
 
+/** Local calendar date as YYYY-MM-DD, matching what <input type="date"> produces. */
+function todayIso(): string {
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 interface BookingForm {
   name: string;
   phone: string;
@@ -63,6 +70,7 @@ function LashPage() {
       errs.phone = "Please enter a valid contact number.";
     if (!form.service) errs.service = "Please choose a service.";
     if (!form.date) errs.date = "Please pick a preferred date.";
+    else if (form.date < todayIso()) errs.date = "Please pick today or a future date.";
     if (!form.time) errs.time = "Please pick a preferred time.";
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
@@ -91,13 +99,11 @@ function LashPage() {
           <Reveal>
             <p className="eyebrow text-lime">Lash studio</p>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Wake up with{" "}
-              <span className="italic text-lime">perfect lashes</span>
+              Wake up with <span className="italic text-lime">perfect lashes</span>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-primary-foreground/80">
-              Every set is mapped to your eye shape, your lifestyle and your
-              glow. Soft and natural, or full editorial volume — the choice is
-              yours.
+              Every set is mapped to your eye shape, your lifestyle and your glow. Soft and natural,
+              or full editorial volume — the choice is yours.
             </p>
             <div className="mt-9">
               <a
@@ -124,10 +130,7 @@ function LashPage() {
       </section>
 
       {/* Services */}
-      <section
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
-        aria-labelledby="services"
-      >
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="services">
         <Reveal>
           <SectionHeading
             eyebrow="The menu"
@@ -155,30 +158,23 @@ function LashPage() {
             />
           </Reveal>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:max-w-3xl lg:mx-auto">
-            {[
-              { src: lashHero, label: "Volume set — sample" },
-              { src: site.social.instagram ? undefined : undefined, label: "" },
-            ]
-              .filter((item) => item.src)
-              .map((item, i) => (
-                <Reveal key={i} delay={i * 100}>
-                  <figure>
-                    <div className="overflow-hidden rounded-3xl border border-border">
-                      <img
-                        src={item.src}
-                        alt={item.label}
-                        width={1024}
-                        height={1280}
-                        loading="lazy"
-                        className="aspect-square w-full object-cover"
-                      />
-                    </div>
-                    <figcaption className="mt-2 text-center text-xs text-muted-foreground">
-                      {item.label} — before/after photos coming soon
-                    </figcaption>
-                  </figure>
-                </Reveal>
-              ))}
+            <Reveal>
+              <figure className="lg:mx-auto lg:max-w-md">
+                <div className="overflow-hidden rounded-3xl border border-border">
+                  <img
+                    src={lashHero}
+                    alt="Sample volume lash set, shown until real before and after photos are added"
+                    width={1024}
+                    height={1280}
+                    loading="lazy"
+                    className="aspect-square w-full object-cover"
+                  />
+                </div>
+                <figcaption className="mt-2 text-center text-xs text-muted-foreground">
+                  Sample imagery — real before &amp; after photos coming soon
+                </figcaption>
+              </figure>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -232,9 +228,9 @@ function LashPage() {
                   Request prepared in WhatsApp
                 </h3>
                 <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  Your appointment request has been handed to WhatsApp with all
-                  your details. <strong>Please send the message there</strong> —
-                  your booking is only confirmed once the studio replies.
+                  Your appointment request has been handed to WhatsApp with all your details.{" "}
+                  <strong>Please send the message there</strong> — your booking is only confirmed
+                  once the studio replies.
                 </p>
                 <button
                   type="button"
@@ -253,10 +249,7 @@ function LashPage() {
               >
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label
-                      htmlFor="appt-name"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-name" className="text-sm font-semibold text-charcoal">
                       Name
                     </label>
                     <input
@@ -275,10 +268,7 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-phone"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-phone" className="text-sm font-semibold text-charcoal">
                       Contact number
                     </label>
                     <input
@@ -297,10 +287,7 @@ function LashPage() {
                     )}
                   </div>
                   <div className="sm:col-span-2">
-                    <label
-                      htmlFor="appt-service"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-service" className="text-sm font-semibold text-charcoal">
                       Requested service
                     </label>
                     <select
@@ -323,15 +310,13 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-date"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-date" className="text-sm font-semibold text-charcoal">
                       Preferred date
                     </label>
                     <input
                       id="appt-date"
                       type="date"
+                      min={todayIso()}
                       value={form.date}
                       onChange={(e) => set("date", e.target.value)}
                       aria-invalid={!!errors.date}
@@ -344,10 +329,7 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-time"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-time" className="text-sm font-semibold text-charcoal">
                       Preferred time
                     </label>
                     <input
@@ -372,8 +354,7 @@ function LashPage() {
                   Request via WhatsApp
                 </button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
-                  A request, not a confirmed booking — the studio confirms by
-                  replying on WhatsApp.
+                  A request, not a confirmed booking — the studio confirms by replying on WhatsApp.
                 </p>
               </form>
             )}
@@ -399,17 +380,12 @@ function LashPage() {
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-display text-sm font-semibold text-primary-foreground">
                     {i + 1}
                   </span>
-                  <p className="pt-1 text-sm leading-relaxed text-muted-foreground">
-                    {step}
-                  </p>
+                  <p className="pt-1 text-sm leading-relaxed text-muted-foreground">{step}</p>
                 </li>
               ))}
             </ol>
             <div className="mt-10 text-center">
-              <WhatsAppButton
-                message={whatsappMessages.general()}
-                variant="outline"
-              >
+              <WhatsAppButton message={whatsappMessages.general()} variant="outline">
                 Ask an aftercare question
               </WhatsAppButton>
             </div>

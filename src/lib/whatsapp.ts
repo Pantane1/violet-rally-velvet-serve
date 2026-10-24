@@ -24,12 +24,7 @@ export const whatsappMessages = {
    * Lash appointment REQUEST (not a confirmed booking) — includes the
    * requested service and preferred appointment details.
    */
-  lashAppointment: (opts: {
-    service: string;
-    name?: string;
-    date?: string;
-    time?: string;
-  }) => {
+  lashAppointment: (opts: { service: string; name?: string; date?: string; time?: string }) => {
     const lines = [
       `Hi ${site.brand.name}! I'd like to request a lash appointment.`,
       `Service: ${opts.service}`,

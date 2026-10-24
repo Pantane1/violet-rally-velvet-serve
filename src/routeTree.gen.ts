@@ -13,8 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as LashRouteImport } from './routes/lash'
-import { Route as ShopRouteImport } from './routes/shop'
-import { Route as ShopSlugRouteImport } from './routes/shop.$slug_'
+import { Route as ShopIndexRouteImport } from './routes/shop.index'
+import { Route as ShopSlugRouteImport } from './routes/shop.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,15 +36,15 @@ const LashRoute = LashRouteImport.update({
   path: '/lash',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShopRoute = ShopRouteImport.update({
-  id: '/shop',
-  path: '/shop',
+const ShopIndexRoute = ShopIndexRouteImport.update({
+  id: '/shop/',
+  path: '/shop/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopSlugRoute = ShopSlugRouteImport.update({
-  id: '/$slug_',
-  path: '/$slug',
-  getParentRoute: () => ShopRoute,
+  id: '/shop/$slug',
+  path: '/shop/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -52,16 +52,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
   '/shop/$slug': typeof ShopSlugRoute
+  '/shop/': typeof ShopIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
   '/shop/$slug': typeof ShopSlugRoute
+  '/shop': typeof ShopIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,22 +69,22 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
-  '/shop/$slug_': typeof ShopSlugRoute
+  '/shop/$slug': typeof ShopSlugRoute
+  '/shop/': typeof ShopIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/journal' | '/lash' | '/shop' | '/shop/$slug'
+  fullPaths: '/' | '/about' | '/journal' | '/lash' | '/shop/$slug' | '/shop/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/journal' | '/lash' | '/shop' | '/shop/$slug'
+  to: '/' | '/about' | '/journal' | '/lash' | '/shop/$slug' | '/shop'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/journal'
     | '/lash'
-    | '/shop'
-    | '/shop/$slug_'
+    | '/shop/$slug'
+    | '/shop/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,7 +92,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   JournalRoute: typeof JournalRoute
   LashRoute: typeof LashRoute
-  ShopRoute: typeof ShopRouteWithChildren
+  ShopSlugRoute: typeof ShopSlugRoute
+  ShopIndexRoute: typeof ShopIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -125,39 +126,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LashRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shop': {
-      id: '/shop'
+    '/shop/': {
+      id: '/shop/'
       path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof ShopRouteImport
+      fullPath: '/shop/'
+      preLoaderRoute: typeof ShopIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shop/$slug_': {
-      id: '/shop/$slug_'
-      path: '/$slug'
+    '/shop/$slug': {
+      id: '/shop/$slug'
+      path: '/shop/$slug'
       fullPath: '/shop/$slug'
       preLoaderRoute: typeof ShopSlugRouteImport
-      parentRoute: typeof ShopRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ShopRouteChildren {
-  ShopSlugRoute: typeof ShopSlugRoute
-}
-
-const ShopRouteChildren: ShopRouteChildren = {
-  ShopSlugRoute: ShopSlugRoute,
-}
-
-const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   JournalRoute: JournalRoute,
   LashRoute: LashRoute,
-  ShopRoute: ShopRouteWithChildren,
+  ShopSlugRoute: ShopSlugRoute,
+  ShopIndexRoute: ShopIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

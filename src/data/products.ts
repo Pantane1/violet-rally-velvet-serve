@@ -27,7 +27,7 @@ export type ProductCategory = "tops" | "blouses" | "crop-tops";
 
 export interface Product {
   id: string;
-  /** URL segment, e.g. /shop/$slug_ */
+  /** URL segment, e.g. /shop/$slug */
   slug: string;
   name: string;
   description: string;

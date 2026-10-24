@@ -4,14 +4,19 @@
 - [x] Central brand/contact config (`src/config/site.ts`)
 - [x] WhatsApp link/message helpers + unit tests
 - [x] Lash services sample data
-- [ ] Generate remaining product imagery (4 more shots)
-- [ ] Product data file (sample inventory) + journal data
-- [ ] Shared components: navbar, footer, section heading, product/service cards, reveal
-- [ ] Home page (hero, featured collection, lash preview, founder, brand story, conversion, footer)
-- [ ] Shop page with filters + product detail page
-- [ ] Lash studio page with appointment form (WhatsApp submission)
-- [ ] About the founder page
-- [ ] Journal / social gallery page
-- [ ] Branded 404
-- [ ] Per-route SEO metadata
-- [ ] Verification (tests, Playwright) + README setup instructions
+- [x] Product imagery (8 product shots, lash, editorial, founder)
+- [x] Product, service and journal data files (sample content, marked SAMPLE)
+- [x] Shared components: navbar, footer, section heading, product/service cards, reveal
+- [x] Home page (hero, featured collection, lash preview, founder, brand story, conversion, footer)
+- [x] Shop page + product detail page (`/shop`, `/shop/:slug`)
+- [x] Lash studio page with appointment request (prepares a WhatsApp message, does not confirm bookings)
+- [x] About the founder page
+- [x] Journal / social gallery page
+- [x] Branded 404
+- [x] Per-route SEO metadata (title, description, Open Graph, Twitter card)
+- [x] Routing regression tests, README setup and deployment notes
+- [ ] Real business content: WhatsApp number, email, address, hours, social handles, products, prices, services, journal
+- [ ] Real before/after lash photography
+- [ ] Sitemap and canonical URLs (needs the final production domain)
+- [ ] Playwright end-to-end tests committed to the repo
+- [ ] Hosting account and production deploy (see README → Deployment)

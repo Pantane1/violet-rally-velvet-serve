@@ -106,9 +106,7 @@ export function Navbar() {
       <div
         className={cn(
           "fixed inset-0 z-[60] flex flex-col bg-plum text-primary-foreground transition-all duration-300 lg:hidden",
-          open
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0",
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
         role="dialog"
         aria-modal="true"

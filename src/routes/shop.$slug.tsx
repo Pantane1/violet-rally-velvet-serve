@@ -2,11 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 import { site } from "@/config/site";
-import {
-  findProductBySlug,
-  products,
-  stockStatusLabels,
-} from "@/data/products";
+import { findProductBySlug, products, stockStatusLabels } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
@@ -14,7 +10,7 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/shop/$slug_")({
+export const Route = createFileRoute("/shop/$slug")({
   loader: ({ params }) => {
     const product = findProductBySlug(params.slug);
     if (!product) throw notFound();
@@ -55,11 +51,7 @@ function ProductDetailPage() {
   const [size, setSize] = useState<string | null>(null);
 
   const related = products
-    .filter(
-      (p) =>
-        p.slug !== product.slug &&
-        (p.category === product.category || p.featured),
-    )
+    .filter((p) => p.slug !== product.slug && (p.category === product.category || p.featured))
     .slice(0, 4);
 
   return (
@@ -142,9 +134,7 @@ function ProductDetailPage() {
             </span>
           </div>
 
-          <p className="mt-6 leading-relaxed text-muted-foreground">
-            {product.description}
-          </p>
+          <p className="mt-6 leading-relaxed text-muted-foreground">{product.description}</p>
 
           {/* Size selector */}
           <div className="mt-8">
@@ -192,8 +182,7 @@ function ProductDetailPage() {
               </WhatsAppButton>
             )}
             <p className="mt-3 text-xs text-muted-foreground">
-              Opens WhatsApp with this piece and your size pre-filled — no
-              account needed.
+              Opens WhatsApp with this piece and your size pre-filled — no account needed.
             </p>
           </div>
         </div>
@@ -203,9 +192,7 @@ function ProductDetailPage() {
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-2xl font-semibold text-charcoal">
-              You may also love
-            </h2>
+            <h2 className="font-display text-2xl font-semibold text-charcoal">You may also love</h2>
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
               {related.map((p, i) => (
                 <Reveal key={p.id} delay={i * 80}>

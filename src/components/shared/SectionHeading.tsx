@@ -6,6 +6,7 @@ export function SectionHeading({
   description,
   align = "center",
   light = false,
+  as: Heading = "h2",
   className,
 }: {
   eyebrow?: string;
@@ -15,6 +16,8 @@ export function SectionHeading({
   /** Use on plum / dark backgrounds. */
   light?: boolean;
   className?: string;
+  /** Use "h1" for a page's main heading; defaults to "h2" for sections. */
+  as?: "h1" | "h2";
 }) {
   return (
     <div
@@ -24,19 +27,15 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow && (
-        <p className={cn("eyebrow", light ? "text-lime" : "text-primary")}>
-          {eyebrow}
-        </p>
-      )}
-      <h2
+      {eyebrow && <p className={cn("eyebrow", light ? "text-lime" : "text-primary")}>{eyebrow}</p>}
+      <Heading
         className={cn(
           "mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl",
           light ? "text-primary-foreground" : "text-charcoal",
         )}
       >
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
           className={cn(

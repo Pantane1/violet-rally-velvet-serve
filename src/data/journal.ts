@@ -43,42 +43,48 @@ export const journalEntries: JournalEntry[] = [
     id: "j1",
     kind: "drop",
     title: "The Purple Haze Edit",
-    caption: "Six new vintage tops landed this week — plum, lilac and everything between. DM to claim before they're gone. SAMPLE entry.",
+    caption:
+      "Six new vintage tops landed this week — plum, lilac and everything between. DM to claim before they're gone. SAMPLE entry.",
     image: blouseBloom,
   },
   {
     id: "j2",
     kind: "transformation",
     title: "Soft Glam Volume",
-    caption: "A wispy volume set that went from everyday to editorial in one appointment. SAMPLE entry — replace with real before/after photography.",
+    caption:
+      "A wispy volume set that went from everyday to editorial in one appointment. SAMPLE entry — replace with real before/after photography.",
     image: lashHero,
   },
   {
     id: "j3",
     kind: "tennis",
     title: "Match-Day Uniform",
-    caption: "Court whites, lilac pleats and one very optimistic backhand. Style that travels from baseline to brunch. SAMPLE entry.",
+    caption:
+      "Court whites, lilac pleats and one very optimistic backhand. Style that travels from baseline to brunch. SAMPLE entry.",
     image: tennisEditorial,
   },
   {
     id: "j4",
     kind: "inspiration",
     title: "Satin Season",
-    caption: "How we're styling the satin blouse three ways this month. SAMPLE entry — swap in real styling content.",
+    caption:
+      "How we're styling the satin blouse three ways this month. SAMPLE entry — swap in real styling content.",
     image: heroEditorial,
   },
   {
     id: "j5",
     kind: "bts",
     title: "Behind the Steamer",
-    caption: "Prepping the next drop — steaming, tagging and photographing every piece in natural light. SAMPLE entry.",
+    caption:
+      "Prepping the next drop — steaming, tagging and photographing every piece in natural light. SAMPLE entry.",
     image: knitPlum,
   },
   {
     id: "j6",
     kind: "drop",
     title: "Corset Drop Preview",
-    caption: "One-of-one structured pieces in lilac. First look before it hits the shop. SAMPLE entry.",
+    caption:
+      "One-of-one structured pieces in lilac. First look before it hits the shop. SAMPLE entry.",
     image: corsetLilac,
   },
 ];
