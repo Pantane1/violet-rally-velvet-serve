@@ -91,13 +91,11 @@ function LashPage() {
           <Reveal>
             <p className="eyebrow text-lime">Lash studio</p>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Wake up with{" "}
-              <span className="italic text-lime">perfect lashes</span>
+              Wake up with <span className="italic text-lime">perfect lashes</span>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-primary-foreground/80">
-              Every set is mapped to your eye shape, your lifestyle and your
-              glow. Soft and natural, or full editorial volume — the choice is
-              yours.
+              Every set is mapped to your eye shape, your lifestyle and your glow. Soft and natural,
+              or full editorial volume — the choice is yours.
             </p>
             <div className="mt-9">
               <a
@@ -124,10 +122,7 @@ function LashPage() {
       </section>
 
       {/* Services */}
-      <section
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
-        aria-labelledby="services"
-      >
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="services">
         <Reveal>
           <SectionHeading
             eyebrow="The menu"
@@ -232,9 +227,9 @@ function LashPage() {
                   Request prepared in WhatsApp
                 </h3>
                 <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  Your appointment request has been handed to WhatsApp with all
-                  your details. <strong>Please send the message there</strong> —
-                  your booking is only confirmed once the studio replies.
+                  Your appointment request has been handed to WhatsApp with all your details.{" "}
+                  <strong>Please send the message there</strong> — your booking is only confirmed
+                  once the studio replies.
                 </p>
                 <button
                   type="button"
@@ -253,10 +248,7 @@ function LashPage() {
               >
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label
-                      htmlFor="appt-name"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-name" className="text-sm font-semibold text-charcoal">
                       Name
                     </label>
                     <input
@@ -275,10 +267,7 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-phone"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-phone" className="text-sm font-semibold text-charcoal">
                       Contact number
                     </label>
                     <input
@@ -297,10 +286,7 @@ function LashPage() {
                     )}
                   </div>
                   <div className="sm:col-span-2">
-                    <label
-                      htmlFor="appt-service"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-service" className="text-sm font-semibold text-charcoal">
                       Requested service
                     </label>
                     <select
@@ -323,10 +309,7 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-date"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-date" className="text-sm font-semibold text-charcoal">
                       Preferred date
                     </label>
                     <input
@@ -344,10 +327,7 @@ function LashPage() {
                     )}
                   </div>
                   <div>
-                    <label
-                      htmlFor="appt-time"
-                      className="text-sm font-semibold text-charcoal"
-                    >
+                    <label htmlFor="appt-time" className="text-sm font-semibold text-charcoal">
                       Preferred time
                     </label>
                     <input
@@ -372,8 +352,7 @@ function LashPage() {
                   Request via WhatsApp
                 </button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
-                  A request, not a confirmed booking — the studio confirms by
-                  replying on WhatsApp.
+                  A request, not a confirmed booking — the studio confirms by replying on WhatsApp.
                 </p>
               </form>
             )}
@@ -399,17 +378,12 @@ function LashPage() {
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-display text-sm font-semibold text-primary-foreground">
                     {i + 1}
                   </span>
-                  <p className="pt-1 text-sm leading-relaxed text-muted-foreground">
-                    {step}
-                  </p>
+                  <p className="pt-1 text-sm leading-relaxed text-muted-foreground">{step}</p>
                 </li>
               ))}
             </ol>
             <div className="mt-10 text-center">
-              <WhatsAppButton
-                message={whatsappMessages.general()}
-                variant="outline"
-              >
+              <WhatsAppButton message={whatsappMessages.general()} variant="outline">
                 Ask an aftercare question
               </WhatsAppButton>
             </div>

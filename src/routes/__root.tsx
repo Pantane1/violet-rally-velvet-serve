@@ -21,15 +21,13 @@ function NotFoundComponent() {
     <div className="flex min-h-[70vh] items-center justify-center bg-secondary px-4 py-24">
       <div className="max-w-md text-center">
         <BallMark className="mx-auto h-14 w-14 text-primary" />
-        <h1 className="mt-8 font-display text-6xl font-semibold text-primary">
-          404
-        </h1>
+        <h1 className="mt-8 font-display text-6xl font-semibold text-primary">404</h1>
         <h2 className="mt-4 font-display text-2xl font-semibold text-charcoal">
           Love-all. Page not found.
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          This ball landed out of court — the page you're looking for doesn't
-          exist or has been moved. Let's get you back to centre.
+          This ball landed out of court — the page you're looking for doesn't exist or has been
+          moved. Let's get you back to centre.
         </p>
         <div className="mt-8">
           <Link
@@ -55,8 +53,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
           This page didn't load
         </h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back
-          home.
+          Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button

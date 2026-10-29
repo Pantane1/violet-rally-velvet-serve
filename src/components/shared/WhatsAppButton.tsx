@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   /** Solid royal plum — primary CTAs on light backgrounds. */
-  primary:
-    "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-plum/20",
+  primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-plum/20",
   /** Outlined plum — secondary CTAs on light backgrounds. */
   outline:
     "border border-primary/30 bg-transparent text-primary hover:border-primary hover:bg-secondary",

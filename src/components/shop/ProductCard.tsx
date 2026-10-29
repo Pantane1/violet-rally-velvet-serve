@@ -1,9 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { formatPrice } from "@/lib/format";
-import {
-  stockStatusLabels,
-  type Product,
-} from "@/data/products";
+import { stockStatusLabels, type Product } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 const statusStyles = {

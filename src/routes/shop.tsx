@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { site } from "@/config/site";
-import {
-  productCategories,
-  products,
-  type ProductCategory,
-} from "@/data/products";
+import { productCategories, products, type ProductCategory } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -25,8 +21,7 @@ export const Route = createFileRoute("/shop")({
       { property: "og:title", content: `Shop the Fits — ${site.brand.name}` },
       {
         property: "og:description",
-        content:
-          "Curated one-of-one thrifted tops, blouses and crop tops — order on WhatsApp.",
+        content: "Curated one-of-one thrifted tops, blouses and crop tops — order on WhatsApp.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -179,8 +174,7 @@ function ShopPage() {
               No pieces match those filters
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Try widening your search — new one-of-one pieces land all the
-              time.
+              Try widening your search — new one-of-one pieces land all the time.
             </p>
             <button
               type="button"

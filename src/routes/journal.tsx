@@ -2,11 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { site } from "@/config/site";
-import {
-  journalEntries,
-  journalKindLabels,
-  type JournalKind,
-} from "@/data/journal";
+import { journalEntries, journalKindLabels, type JournalKind } from "@/data/journal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
@@ -36,8 +32,7 @@ export const Route = createFileRoute("/journal")({
 function JournalPage() {
   const [kind, setKind] = useState<"all" | JournalKind>("all");
   const kinds = [...new Set(journalEntries.map((e) => e.kind))];
-  const filtered =
-    kind === "all" ? journalEntries : journalEntries.filter((e) => e.kind === kind);
+  const filtered = kind === "all" ? journalEntries : journalEntries.filter((e) => e.kind === kind);
 
   return (
     <>
@@ -51,16 +46,18 @@ function JournalPage() {
               description="New drops, lash transformations, styling inspiration and behind-the-scenes moments. Follow along on Instagram and TikTok for the daily view."
             />
             <p className="mt-4 text-xs text-muted-foreground">
-              Sample entries shown — the owner's real content and photography
-              will replace these. No social-feed integration is used; links
-              open the profiles directly.
+              Sample entries shown — the owner's real content and photography will replace these. No
+              social-feed integration is used; links open the profiles directly.
             </p>
           </Reveal>
         </div>
       </section>
 
       {/* Kind filter chips */}
-      <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8" aria-label="Filter journal by type">
+      <section
+        className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8"
+        aria-label="Filter journal by type"
+      >
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
@@ -135,8 +132,8 @@ function JournalPage() {
               Follow the rally
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-primary-foreground/75">
-              Daily drops, lash looks and court-side style — it all happens on
-              Instagram and TikTok first.
+              Daily drops, lash looks and court-side style — it all happens on Instagram and TikTok
+              first.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a

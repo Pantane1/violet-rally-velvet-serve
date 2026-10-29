@@ -24,11 +24,7 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow && (
-        <p className={cn("eyebrow", light ? "text-lime" : "text-primary")}>
-          {eyebrow}
-        </p>
-      )}
+      {eyebrow && <p className={cn("eyebrow", light ? "text-lime" : "text-primary")}>{eyebrow}</p>}
       <h2
         className={cn(
           "mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl",

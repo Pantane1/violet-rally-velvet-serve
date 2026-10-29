@@ -50,8 +50,7 @@ function AboutPage() {
               />
             </div>
             <p className="mt-3 text-center text-xs text-muted-foreground">
-              Placeholder portrait — the founder's real photograph will replace
-              this.
+              Placeholder portrait — the founder's real photograph will replace this.
             </p>
           </Reveal>
           <Reveal delay={120}>
@@ -66,27 +65,24 @@ function AboutPage() {
                 owner can replace this copy with her real story. */}
             <div className="mt-8 max-w-xl space-y-5 leading-relaxed text-muted-foreground">
               <p>
-                Fashion came first — the thrill of finding that one perfect
-                piece that feels like it was always yours. Thrifting isn't
-                just shopping; it's a treasure hunt with an eye for quality,
-                colour and story.
+                Fashion came first — the thrill of finding that one perfect piece that feels like it
+                was always yours. Thrifting isn't just shopping; it's a treasure hunt with an eye
+                for quality, colour and story.
               </p>
               <p>
-                Beauty followed naturally. A beautiful set of lashes does
-                something no outfit can: it stays with you from the first
-                coffee to the last set change. Learning the craft of lash art
-                became a way to hand that feeling to other women.
+                Beauty followed naturally. A beautiful set of lashes does something no outfit can:
+                it stays with you from the first coffee to the last set change. Learning the craft
+                of lash art became a way to hand that feeling to other women.
               </p>
               <p>
-                And then there's tennis — the discipline, the footwork, the
-                quiet confidence of showing up match after match. It shapes
-                how she runs this brand: with consistency, care and a bit of
-                court-side flair.
+                And then there's tennis — the discipline, the footwork, the quiet confidence of
+                showing up match after match. It shapes how she runs this brand: with consistency,
+                care and a bit of court-side flair.
               </p>
               <p>
-                Everything at {site.brand.name} comes back to one belief:
-                every woman deserves to express her individuality loudly,
-                softly and unapologetically — her style, her glow, her court.
+                Everything at {site.brand.name} comes back to one belief: every woman deserves to
+                express her individuality loudly, softly and unapologetically — her style, her glow,
+                her court.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -109,15 +105,9 @@ function AboutPage() {
       </section>
 
       {/* Values */}
-      <section
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
-        aria-labelledby="values"
-      >
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="values">
         <Reveal>
-          <SectionHeading
-            eyebrow="What we stand for"
-            title="Four things, one brand"
-          />
+          <SectionHeading eyebrow="What we stand for" title="Four things, one brand" />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -144,9 +134,7 @@ function AboutPage() {
                 <h3 className="mt-4 font-display text-xl font-semibold text-charcoal">
                   {value.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {value.text}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{value.text}</p>
               </div>
             </Reveal>
           ))}
@@ -165,14 +153,10 @@ function AboutPage() {
               Come say hello
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-primary-foreground/75">
-              Whether it's a fit, a lash set or a rally — we'd love to hear
-              from you.
+              Whether it's a fit, a lash set or a rally — we'd love to hear from you.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <WhatsAppButton
-                variant="lime"
-                message={whatsappMessages.general()}
-              >
+              <WhatsAppButton variant="lime" message={whatsappMessages.general()}>
                 WhatsApp the studio
               </WhatsAppButton>
               <Link

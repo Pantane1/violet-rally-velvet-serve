@@ -7,12 +7,7 @@ import { site } from "@/config/site";
  */
 export function BallMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      className={className}
-      aria-hidden="true"
-      fill="none"
-    >
+    <svg viewBox="0 0 32 32" className={className} aria-hidden="true" fill="none">
       <circle cx="16" cy="16" r="12.5" stroke="currentColor" strokeWidth="2" />
       <path
         d="M10.5 4.8 C 16.5 10.5 16.5 21.5 10.5 27.2"
@@ -38,10 +33,7 @@ export function Logo({
   markClassName?: string;
 }) {
   return (
-    <span
-      className={`inline-flex items-center gap-2.5 ${className}`}
-      aria-label={site.brand.name}
-    >
+    <span className={`inline-flex items-center gap-2.5 ${className}`} aria-label={site.brand.name}>
       <BallMark className={`h-8 w-8 ${markClassName}`} />
       <span className="font-display text-[1.3rem] font-semibold leading-none tracking-tight">
         {site.brand.name}

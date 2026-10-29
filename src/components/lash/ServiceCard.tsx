@@ -11,9 +11,7 @@ export function ServiceCard({ service }: { service: LashService }) {
           Most loved
         </span>
       )}
-      <h3 className="font-display text-2xl font-semibold text-charcoal">
-        {service.name}
-      </h3>
+      <h3 className="font-display text-2xl font-semibold text-charcoal">{service.name}</h3>
       <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">
         {service.description}
       </p>
@@ -22,9 +20,7 @@ export function ServiceCard({ service }: { service: LashService }) {
           <p className="font-display text-xl font-semibold text-primary">
             {formatPrice(service.price)}
           </p>
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            Approx. {service.duration}
-          </p>
+          <p className="mt-0.5 text-xs text-muted-foreground">Approx. {service.duration}</p>
         </div>
         <WhatsAppButton
           variant="outline"

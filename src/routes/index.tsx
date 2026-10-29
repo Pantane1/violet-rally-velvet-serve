@@ -30,8 +30,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content:
-          "Curated thrifted fashion and luxury lash services, all in one place.",
+        content: "Curated thrifted fashion and luxury lash services, all in one place.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -58,16 +57,12 @@ function Index() {
         />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:px-8 lg:pb-24 lg:pt-40">
           <Reveal>
-            <p className="eyebrow text-primary">
-              Curated thrift · Lash studio
-            </p>
+            <p className="eyebrow text-primary">Curated thrift · Lash studio</p>
             <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-charcoal sm:text-6xl lg:text-[4.4rem]">
-              Your style. Your glow.{" "}
-              <span className="italic text-primary">Your court.</span>
+              Your style. Your glow. <span className="italic text-primary">Your court.</span>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Discover curated women's fashion and beautiful lash looks, all in
-              one place.
+              Discover curated women's fashion and beautiful lash looks, all in one place.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
@@ -163,17 +158,10 @@ function Index() {
             />
             <ul className="mt-8 divide-y divide-white/10">
               {lashServices.slice(0, 3).map((service) => (
-                <li
-                  key={service.id}
-                  className="flex items-baseline justify-between gap-4 py-4"
-                >
+                <li key={service.id} className="flex items-baseline justify-between gap-4 py-4">
                   <div>
-                    <p className="font-display text-lg font-medium">
-                      {service.name}
-                    </p>
-                    <p className="text-xs text-primary-foreground/60">
-                      Approx. {service.duration}
-                    </p>
+                    <p className="font-display text-lg font-medium">{service.name}</p>
+                    <p className="text-xs text-primary-foreground/60">Approx. {service.duration}</p>
                   </div>
                   <p className="font-display text-lg font-semibold text-lime">
                     {formatPrice(service.price)}
@@ -202,10 +190,7 @@ function Index() {
       </section>
 
       {/* ── Meet the founder ─────────────────────────────────── */}
-      <section
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
-        aria-labelledby="founder"
-      >
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="founder">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <Reveal>
             <div className="relative mx-auto max-w-sm">
@@ -229,10 +214,9 @@ function Index() {
               className="max-w-none"
             />
             <p className="mt-6 max-w-xl leading-relaxed text-muted-foreground">
-              {site.brand.name} began with a simple idea: the right top and a
-              beautiful lash can change how a woman walks into a room. Between
-              curating one-of-one thrifted finds and perfecting lash sets,
-              there's always a racket in the bag — because confidence is a
+              {site.brand.name} began with a simple idea: the right top and a beautiful lash can
+              change how a woman walks into a room. Between curating one-of-one thrifted finds and
+              perfecting lash sets, there's always a racket in the bag — because confidence is a
               sport you practise every day.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -268,16 +252,15 @@ function Index() {
             />
             <div className="drop-cap mt-8 max-w-xl space-y-5 leading-relaxed text-muted-foreground">
               <p>
-                Style, beauty and sport share one thing in common: they're all
-                about showing up as yourself. A thrifted blouse with a story, a
-                lash set that catches the light on match point, the quiet
-                confidence of a woman who knows her own taste — it all belongs
-                to the same rally.
+                Style, beauty and sport share one thing in common: they're all about showing up as
+                yourself. A thrifted blouse with a story, a lash set that catches the light on match
+                point, the quiet confidence of a woman who knows her own taste — it all belongs to
+                the same rally.
               </p>
               <p>
-                {site.brand.name} exists so that looking incredible never feels
-                like a compromise. Curated pieces, beautiful lashes and a
-                little court-side attitude — unapologetically you.
+                {site.brand.name} exists so that looking incredible never feels like a compromise.
+                Curated pieces, beautiful lashes and a little court-side attitude — unapologetically
+                you.
               </p>
             </div>
           </Reveal>
@@ -308,14 +291,11 @@ function Index() {
               Ready to serve your best look?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-primary-foreground/75">
-              Ask about a piece, plan your next lash set, or just say hello —
-              the fastest way to reach the studio is WhatsApp.
+              Ask about a piece, plan your next lash set, or just say hello — the fastest way to
+              reach the studio is WhatsApp.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-              <WhatsAppButton
-                variant="lime"
-                message={whatsappMessages.general()}
-              >
+              <WhatsAppButton variant="lime" message={whatsappMessages.general()}>
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 Chat on WhatsApp
               </WhatsAppButton>
