@@ -420,16 +420,6 @@ Prioritize exceptional visual design, usability, real business functionality, an
 
 Start by planning the page structure and design system, then implement the actual website. Do not stop at a wireframe, landing-page mockup, or design proposal. Build the working website.
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/30bfec2e-330b-4238-9e7a-36f91f00a615).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
@@ -440,3 +430,15 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+### Scripts
+
+| Command | Purpose |
+| :--- | :--- |
+| `npm run dev` | Start the development server (Vite dev, SSR enabled) |
+| `npm run build` | Production build |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | ESLint over the project |
+| `npm run format` | Prettier formatting |
+| `npm test` | Run unit tests (Vitest) |
+| `npm run test:watch` | Run tests in watch mode |
