@@ -1,0 +1,12 @@
+# Force LF line endings for all text files in the repository and the
+# working tree, on every platform (Windows included).
+* text=auto eol=lf
+
+# Explicitly treat binary assets as binary (never touched by filters).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
