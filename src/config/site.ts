@@ -25,14 +25,14 @@ export const site = {
      * Format: country code + number, digits only. Example: "254712345678".
      * Never link to someone else's account.
      */
-    whatsappNumber: "000000000000",
+    whatsappNumber: "254740312402",
 
     /** SAMPLE — replace with the real business email. */
-    email: "hello@violetrally.example",
+    email: "pantane254@gmail.com",
 
     /** SAMPLE — replace with the real studio / collection point. */
     location: {
-      line1: "Studio address — to be confirmed",
+      line1: "By appointment only",
       line2: "City, Country",
     },
 

@@ -38,7 +38,7 @@ export default defineConfig((env) => {
   // nitro produces the deployable worker on production builds (Cloudflare
   // module worker by default; NITRO_PRESET can override the target).
   if (env.command === "build") {
-    plugins.push(nitro({ defaultPreset: "cloudflare-module" }));
+    plugins.push(nitro({ preset: "vercel" }));
   }
 
   plugins.push(react());

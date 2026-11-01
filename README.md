@@ -442,3 +442,11 @@ npm run dev
 | `npm run format` | Prettier formatting |
 | `npm test` | Run unit tests (Vitest) |
 | `npm run test:watch` | Run tests in watch mode |
+
+### Deployment
+
+The project is configured for **Vercel** (see `vercel.json` and the `nitro({ preset: "vercel" })`
+setting in `vite.config.ts`). Connect the repository to Vercel and it will build with
+`npm run build` and serve from `.output/public`. WhatsApp number, email, socials, hours and
+location live in `src/config/site.ts`; products in `src/data/products.ts` and lash services in
+`src/data/services.ts` — edit those files only.
