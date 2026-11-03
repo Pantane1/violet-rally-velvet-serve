@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { site } from "@/config/site";
 import { productCategories, products, type ProductCategory } from "@/data/products";
+import heroEditorial from "@/assets/hero-editorial.jpg";
 import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -25,7 +26,10 @@ export const Route = createFileRoute("/shop")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: `${site.url}${heroEditorial}` },
+      { name: "twitter:image", content: `${site.url}${heroEditorial}` },
     ],
+    links: [{ rel: "canonical", href: `${site.url}/shop` }],
   }),
   component: ShopPage,
 });

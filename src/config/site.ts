@@ -11,6 +11,9 @@
  */
 
 export const site = {
+  /** SAMPLE — replace with the real production URL (no trailing slash). */
+  url: "https://www.violetrally.example",
+
   brand: {
     /** Working brand name — easy to change in one place. */
     name: "Violet Rally",

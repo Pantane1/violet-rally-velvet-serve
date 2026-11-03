@@ -34,7 +34,10 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: `${site.url}${heroEditorial}` },
+      { name: "twitter:image", content: `${site.url}${heroEditorial}` },
     ],
+    links: [{ rel: "canonical", href: `${site.url}/` }],
   }),
   component: Index,
 });

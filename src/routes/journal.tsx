@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { site } from "@/config/site";
 import { journalEntries, journalKindLabels, type JournalKind } from "@/data/journal";
+import heroEditorial from "@/assets/hero-editorial.jpg";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
@@ -24,7 +25,10 @@ export const Route = createFileRoute("/journal")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: `${site.url}${heroEditorial}` },
+      { name: "twitter:image", content: `${site.url}${heroEditorial}` },
     ],
+    links: [{ rel: "canonical", href: `${site.url}/journal` }],
   }),
   component: JournalPage,
 });

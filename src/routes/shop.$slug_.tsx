@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 import { site } from "@/config/site";
@@ -16,39 +16,68 @@ export const Route = createFileRoute("/shop/$slug_")({
     if (!product) throw notFound();
     return { product };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          {
-            title: `${loaderData.product.name} — ${site.brand.name}`,
-          },
-          {
-            name: "description",
-            content: `${loaderData.product.name} — ${formatPrice(
-              loaderData.product.price,
-            )}. Curated, one-of-one thrifted fashion from ${site.brand.name}. Order on WhatsApp.`,
-          },
-          {
-            property: "og:title",
-            content: `${loaderData.product.name} — ${site.brand.name}`,
-          },
-          {
-            property: "og:description",
-            content: `${formatPrice(loaderData.product.price)} · ${
-              loaderData.product.condition
-            } · Sizes ${loaderData.product.sizes.join(", ")}`,
-          },
-          { property: "og:type", content: "product" },
-          { name: "twitter:card", content: "summary_large_image" },
-        ]
-      : [{ title: `Product unavailable — ${site.brand.name}` }],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return { meta: [{ title: `Product unavailable — ${site.brand.name}` }] };
+    }
+    const { product } = loaderData;
+    const productUrl = `${site.url}/shop/${product.slug}`;
+    const imageUrl = `${site.url}${product.images[0]}`;
+    const availability =
+      product.status === "sold-out"
+        ? "https://schema.org/OutOfStock"
+        : "https://schema.org/InStock";
+    return {
+      meta: [
+        { title: `${product.name} — ${site.brand.name}` },
+        {
+          name: "description",
+          content: `${product.name} — ${formatPrice(product.price)}. Curated, one-of-one thrifted fashion from ${site.brand.name}. Order on WhatsApp.`,
+        },
+        { property: "og:title", content: `${product.name} — ${site.brand.name}` },
+        {
+          property: "og:description",
+          content: `${formatPrice(product.price)} · ${product.condition} · Sizes ${product.sizes.join(", ")}`,
+        },
+        { property: "og:type", content: "product" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:image", content: imageUrl },
+        { name: "twitter:image", content: imageUrl },
+      ],
+      links: [{ rel: "canonical", href: productUrl }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            description: product.description,
+            image: imageUrl,
+            brand: { "@type": "Brand", name: site.brand.name },
+            offers: {
+              "@type": "Offer",
+              price: product.price,
+              priceCurrency: site.currency,
+              availability,
+              url: productUrl,
+            },
+          }),
+        },
+      ],
+    };
+  },
   component: ProductDetailPage,
 });
 
 function ProductDetailPage() {
   const { product } = Route.useLoaderData();
   const [size, setSize] = useState<string | null>(null);
+  const [activeImage, setActiveImage] = useState(product.images[0]);
+
+  useEffect(() => {
+    setActiveImage(product.images[0]);
+  }, [product]);
 
   const related = products
     .filter((p) => p.slug !== product.slug && (p.category === product.category || p.featured))
@@ -71,7 +100,7 @@ function ProductDetailPage() {
         <div>
           <div className="overflow-hidden rounded-4xl border border-border bg-secondary">
             <img
-              src={product.images[0]}
+              src={activeImage}
               alt={product.name}
               width={1024}
               height={1280}
@@ -85,7 +114,12 @@ function ProductDetailPage() {
                 <button
                   key={i}
                   type="button"
-                  className="overflow-hidden rounded-2xl border border-border"
+                  onClick={() => setActiveImage(img)}
+                  aria-pressed={activeImage === img}
+                  className={cn(
+                    "overflow-hidden rounded-2xl border transition-colors",
+                    activeImage === img ? "border-primary" : "border-border",
+                  )}
                   aria-label={`View photo ${i + 2} of ${product.name}`}
                 >
                   <img

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, Instagram } from "lucide-react";
 import { site } from "@/config/site";
@@ -18,6 +18,8 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const openButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,6 +39,48 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [open]);
+
+  // Focus trap + Escape handling for the mobile menu overlay.
+  useEffect(() => {
+    if (!open) {
+      openButtonRef.current?.focus();
+      return;
+    }
+    const menu = menuRef.current;
+    if (!menu) return;
+
+    const getFocusable = () =>
+      Array.from(
+        menu.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+
+    getFocusable()[0]?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
   const isActive = (to: string) =>
@@ -90,6 +134,7 @@ export function Navbar() {
               WhatsApp Us
             </a>
             <button
+              ref={openButtonRef}
               type="button"
               onClick={() => setOpen(true)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-accent lg:hidden"
@@ -104,6 +149,7 @@ export function Navbar() {
 
       {/* Mobile menu overlay */}
       <div
+        ref={menuRef}
         className={cn(
           "fixed inset-0 z-[60] flex flex-col bg-plum text-primary-foreground transition-all duration-300 lg:hidden",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
