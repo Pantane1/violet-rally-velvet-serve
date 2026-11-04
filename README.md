@@ -1,6 +1,64 @@
-# Violet Rally Velvet Serve
+﻿# Violet Rally Velvet Serve
 
-Build a Premium Fashion & Beauty Brand Website — Violet Rally / Set & Slay
+Build a Premium Fashion & Beauty Brand Website â€” Violet Rally / Set & Slay
+
+## Overview
+
+Violet Rally / Set & Slay is a premium fashion and beauty brand website for a
+business combining thrifted women's tops, eyelash services, and a tennis-inspired
+identity. It is a static-data, server-rendered React application: all brand,
+product, and service content is centralized in `src/config/site.ts` and
+`src/data/*`, and orders and lash appointments are handled through WhatsApp deep
+links (no payment gateway is integrated).
+
+## Tech stack
+
+- **Frontend:** React 19, TypeScript 5.9, Vite 8
+- **Full-stack SSR:** TanStack Start + TanStack Router (file-based routes)
+- **Styling:** Tailwind CSS 4 (oklch design tokens in `src/styles.css`)
+- **Deployment:** Nitro 3 (Vercel preset) â€” output in `.vercel/output`
+- **Testing:** Vitest 4 + Testing Library
+- **Quality:** ESLint 9 + Prettier, strict TypeScript
+- **State/data:** TanStack Query (router context)
+
+## Getting started
+
+```sh
+npm ci
+npm run dev        # http://localhost:8080
+```
+
+## Scripts
+
+| Command | Purpose |
+| :--- | :--- |
+| `npm run dev` | Start the development server (Vite dev, SSR enabled) |
+| `npm run build` | Production build (Vercel output) |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | ESLint over the project |
+| `npm run format` | Prettier formatting |
+| `npm test` | Run unit tests (Vitest) |
+| `npm run test:watch` | Run tests in watch mode |
+
+## Deployment (Vercel)
+
+The project is configured for Vercel (`vercel.json` + `nitro({ preset: "vercel" })`
+in `vite.config.ts`). Connect the repository to Vercel and it builds with
+`npm run build`, serving from `.vercel/output/public`. WhatsApp number, email,
+socials, hours and location live in `src/config/site.ts`; products in
+`src/data/products.ts`; lash services in `src/data/services.ts`.
+
+## CI pipeline
+
+GitHub Actions (`.github/workflows/ci.yml`) runs on push to `main` and on pull
+requests targeting `main`: `npm ci` â†’ `npm run lint` â†’ `npm run test` â†’
+`npm run build`. All steps must pass before merge.
+
+## License
+
+Proprietary â€” All Rights Reserved. See `LICENSE`.
+
+---
 
 
 
@@ -156,7 +214,7 @@ Below the hero, add:
 
 
 
-4. Fashion Store — Shop the Fits
+4. Fashion Store â€” Shop the Fits
 
 
 
@@ -194,7 +252,7 @@ Do not invent actual inventory, prices, customer reviews, or business policies. 
 
 
 
-5. Lash Studio — Beauty Services
+5. Lash Studio â€” Beauty Services
 
 
 
@@ -420,33 +478,3 @@ Prioritize exceptional visual design, usability, real business functionality, an
 
 Start by planning the page structure and design system, then implement the actual website. Do not stop at a wireframe, landing-page mockup, or design proposal. Build the working website.
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-### Scripts
-
-| Command | Purpose |
-| :--- | :--- |
-| `npm run dev` | Start the development server (Vite dev, SSR enabled) |
-| `npm run build` | Production build |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | ESLint over the project |
-| `npm run format` | Prettier formatting |
-| `npm test` | Run unit tests (Vitest) |
-| `npm run test:watch` | Run tests in watch mode |
-
-### Deployment
-
-The project is configured for **Vercel** (see `vercel.json` and the `nitro({ preset: "vercel" })`
-setting in `vite.config.ts`). Connect the repository to Vercel and it will build with
-`npm run build` and serve from `.output/public`. WhatsApp number, email, socials, hours and
-location live in `src/config/site.ts`; products in `src/data/products.ts` and lash services in
-`src/data/services.ts` — edit those files only.
