@@ -5,6 +5,7 @@ import lashHero from "@/assets/lash-hero.jpg";
 import { site } from "@/config/site";
 import { aftercareSteps, lashServices } from "@/data/services";
 import { buildWhatsAppLink, whatsappMessages } from "@/lib/whatsapp";
+import { validateBookingForm, type BookingForm } from "@/lib/booking-form";
 import { ServiceCard } from "@/components/lash/ServiceCard";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -58,14 +59,6 @@ export const Route = createFileRoute("/lash")({
   component: LashPage,
 });
 
-interface BookingForm {
-  name: string;
-  phone: string;
-  service: string;
-  date: string;
-  time: string;
-}
-
 function LashPage() {
   const [form, setForm] = useState<BookingForm>({
     name: "",
@@ -82,13 +75,7 @@ function LashPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const errs: Partial<Record<keyof BookingForm, string>> = {};
-    if (!form.name.trim()) errs.name = "Please enter your name.";
-    if (!/^[+\d][\d\s-]{6,}$/.test(form.phone.trim()))
-      errs.phone = "Please enter a valid contact number.";
-    if (!form.service) errs.service = "Please choose a service.";
-    if (!form.date) errs.date = "Please pick a preferred date.";
-    if (!form.time) errs.time = "Please pick a preferred time.";
+    const errs = validateBookingForm(form);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
