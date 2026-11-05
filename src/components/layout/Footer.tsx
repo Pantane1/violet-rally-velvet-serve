@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, MessageCircle, Instagram } from "lucide-react";
 import { site } from "@/config/site";
@@ -6,8 +7,100 @@ import { Logo } from "@/components/brand/Logo";
 import { navLinks } from "@/components/layout/Navbar";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+    setMessage("");
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = (await response.json()) as { success?: boolean; message?: string };
+      if (response.ok && data.success) {
+        setStatus("success");
+        setMessage(data.message ?? "You're on the list!");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.message ?? "Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <footer className="bg-plum text-primary-foreground">
+      {/* VIP list */}
+      <div className="border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+            <div>
+              <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                Get drop &amp; restock alerts
+              </h2>
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-foreground/75">
+                Be first to know about new thrifted pieces and lash appointment openings. No spam —
+                just the good stuff.
+              </p>
+            </div>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-3 sm:flex-row sm:items-start"
+              aria-label="Email subscription"
+              noValidate
+            >
+              <div className="flex-1">
+                <label htmlFor="vip-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="vip-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status !== "idle") setStatus("idle");
+                  }}
+                  placeholder="you@example.com"
+                  aria-label="Email address"
+                  disabled={status === "loading" || status === "success"}
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-primary-foreground placeholder:text-primary-foreground/50 focus:border-lime focus:outline-none focus:ring-2 focus:ring-lime/40 disabled:opacity-60"
+                />
+                {status === "error" && message && (
+                  <p className="mt-2 text-xs text-lime" role="alert">
+                    {message}
+                  </p>
+                )}
+                {status === "success" && message && (
+                  <p className="mt-2 text-xs text-lime" role="status">
+                    {message}
+                  </p>
+                )}
+              </div>
+              <button
+                type="submit"
+                disabled={status === "loading" || status === "success" || !email.trim()}
+                className="inline-flex items-center justify-center rounded-full bg-lime px-6 py-3 text-sm font-semibold text-charcoal transition-all hover:-translate-y-0.5 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {status === "loading"
+                  ? "Subscribing…"
+                  : status === "success"
+                    ? "You're on the list!"
+                    : "Subscribe"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Brand */}
