@@ -33,7 +33,8 @@ export async function subscribeEmail(email: string): Promise<SubscribeResult> {
     const audienceId = process.env.RESEND_AUDIENCE_ID;
     await resend.contacts.create({
       email: trimmed,
-      ...(audienceId ? { audienceId } : {}),
+      unsubscribed: false,
+      ...(audienceId ? { segmentId: [audienceId] } : {}),
     });
     return { success: true, message: "You're on the list!" };
   } catch (error) {

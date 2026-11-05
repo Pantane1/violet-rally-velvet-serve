@@ -67,17 +67,21 @@ describe("subscribeEmail", () => {
 
     expect(result).toEqual({ success: true, message: "You're on the list!" });
     expect(Resend).toHaveBeenCalledWith("re_test_key");
-    expect(createMock).toHaveBeenCalledWith({ email: "jane@example.com" });
+    expect(createMock).toHaveBeenCalledWith({ email: "jane@example.com", unsubscribed: false });
   });
 
-  it("passes audienceId when RESEND_AUDIENCE_ID is set", async () => {
+  it("passes segmentId when RESEND_AUDIENCE_ID is set", async () => {
     process.env.RESEND_API_KEY = "re_test_key";
     process.env.RESEND_AUDIENCE_ID = "aud_123";
     createMock.mockResolvedValue({});
 
     await subscribeEmail("jane@example.com");
 
-    expect(createMock).toHaveBeenCalledWith({ email: "jane@example.com", audienceId: "aud_123" });
+    expect(createMock).toHaveBeenCalledWith({
+      email: "jane@example.com",
+      unsubscribed: false,
+      segmentId: ["aud_123"],
+    });
   });
 
   it("returns a failure message when Resend throws", async () => {
