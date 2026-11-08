@@ -65,6 +65,7 @@ function ShopPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
+              as="h1"
               align="left"
               eyebrow="Shop the fits"
               title="One-of-one pieces, ready for their next chapter"

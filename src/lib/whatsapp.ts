@@ -1,4 +1,5 @@
 import { site } from "@/config/site";
+import { formatPrice } from "@/lib/format";
 
 /**
  * Builds a wa.me deep link with a prefilled message.
@@ -14,11 +15,15 @@ export function buildWhatsAppLink(message: string): string {
 export const whatsappMessages = {
   general: () => `Hi ${site.brand.name}! I'd love to make a general enquiry.`,
 
-  /** Product enquiry — includes the product name and selected size when available. */
-  productOrder: (productName: string, size?: string | null) =>
-    size
-      ? `Hi ${site.brand.name}! I'd like to order the "${productName}" in size ${size}. Is it still available?`
-      : `Hi ${site.brand.name}! I'd like to order the "${productName}". Is it still available?`,
+  /** Product enquiry — includes the product name, selected size, price and link when available. */
+  productOrder: (productName: string, size?: string | null, price?: number, url?: string) => {
+    const lines = [`Hi ${site.brand.name}! I'd like to order the "${productName}".`];
+    if (size) lines.push(`Size: ${size}`);
+    if (typeof price === "number") lines.push(`Price: ${formatPrice(price)}`);
+    if (url) lines.push(`Link: ${url}`);
+    lines.push("Is it still available?");
+    return lines.join(" ");
+  },
 
   /**
    * Lash appointment REQUEST (not a confirmed booking) — includes the

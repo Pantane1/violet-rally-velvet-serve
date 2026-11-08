@@ -20,6 +20,7 @@ export function Navbar() {
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
+  const intentionalCloseRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -44,7 +45,10 @@ export function Navbar() {
   // Focus trap + Escape handling for the mobile menu overlay.
   useEffect(() => {
     if (!open) {
-      openButtonRef.current?.focus();
+      if (intentionalCloseRef.current) {
+        openButtonRef.current?.focus();
+        intentionalCloseRef.current = false;
+      }
       return;
     }
     const menu = menuRef.current;
@@ -62,6 +66,7 @@ export function Navbar() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
+        intentionalCloseRef.current = true;
         setOpen(false);
         return;
       }
@@ -163,7 +168,10 @@ export function Navbar() {
           <Logo className="text-primary-foreground" />
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              intentionalCloseRef.current = true;
+              setOpen(false);
+            }}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/10"
             aria-label="Close menu"
           >

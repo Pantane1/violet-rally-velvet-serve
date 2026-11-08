@@ -9,16 +9,20 @@ export function Reveal({
   children,
   className,
   delay = 0,
+  immediate = false,
 }: {
   children: ReactNode;
   className?: string;
   /** Stagger delay in ms. */
   delay?: number;
+  /** Render visible immediately, skipping the scroll-in animation. */
+  immediate?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(immediate);
 
   useEffect(() => {
+    if (immediate) return;
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {

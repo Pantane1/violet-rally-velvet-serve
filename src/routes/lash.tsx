@@ -13,49 +13,69 @@ import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/lash")({
-  head: () => ({
-    meta: [
-      { title: `Lash Studio — ${site.brand.name}` },
-      {
-        name: "description",
-        content:
-          "Classic, volume and mega-volume lash sets, refills and lash lifts. Request your appointment on WhatsApp and leave with lashes that catch the light.",
-      },
-      { property: "og:title", content: `Lash Studio — ${site.brand.name}` },
-      {
-        property: "og:description",
-        content:
-          "Luxury lash services — classic, volume, mega volume, refills and lifts. Request an appointment on WhatsApp.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: `${site.url}${lashHero}` },
-      { name: "twitter:image", content: `${site.url}${lashHero}` },
-    ],
-    links: [{ rel: "canonical", href: `${site.url}/lash` }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: `${site.brand.name} Lash Studio`,
-          description: "Classic, volume and mega-volume lash sets, refills and lash lifts.",
-          url: `${site.url}/lash`,
-          telephone: `+${site.contact.whatsappNumber}`,
-          email: site.contact.email,
-          image: `${site.url}${lashHero}`,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: site.contact.location.line1,
-            addressLocality: site.contact.location.line2,
-          },
-          openingHours: site.contact.hours.map((row) => `${row.days}: ${row.time}`),
-          priceRange: `${site.currency} ${Math.min(...lashServices.map((s) => s.price))}–${Math.max(...lashServices.map((s) => s.price))}`,
-        }),
-      },
-    ],
-  }),
+  head: () => {
+    const dayMap: Record<string, string[]> = {
+      "Monday – Friday": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "Monday - Friday": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      Saturday: ["Saturday"],
+      Sunday: ["Sunday"],
+    };
+    const openingHoursSpecification = site.contact.hours.flatMap((row) => {
+      if (!row.time || row.time.toLowerCase() === "closed") return [];
+      const [opens = "", closes = ""] = row.time.split("–").map((part) => part.trim());
+      const days = dayMap[row.days] ?? [row.days];
+      return days.map((day) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: day,
+        opens,
+        closes,
+      }));
+    });
+
+    return {
+      meta: [
+        { title: `Lash Studio — ${site.brand.name}` },
+        {
+          name: "description",
+          content:
+            "Classic, volume and mega-volume lash sets, refills and lash lifts. Request your appointment on WhatsApp and leave with lashes that catch the light.",
+        },
+        { property: "og:title", content: `Lash Studio — ${site.brand.name}` },
+        {
+          property: "og:description",
+          content:
+            "Luxury lash services — classic, volume, mega volume, refills and lifts. Request an appointment on WhatsApp.",
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:image", content: `${site.url}${lashHero}` },
+        { name: "twitter:image", content: `${site.url}${lashHero}` },
+      ],
+      links: [{ rel: "canonical", href: `${site.url}/lash` }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BeautySalon",
+            name: `${site.brand.name} Lash Studio`,
+            description: "Classic, volume and mega-volume lash sets, refills and lash lifts.",
+            url: `${site.url}/lash`,
+            telephone: `+${site.contact.whatsappNumber}`,
+            email: site.contact.email,
+            image: `${site.url}${lashHero}`,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: site.contact.location.line1,
+              addressLocality: site.contact.location.line2,
+            },
+            openingHoursSpecification,
+            priceRange: `${site.currency} ${Math.min(...lashServices.map((s) => s.price))}–${Math.max(...lashServices.map((s) => s.price))}`,
+          }),
+        },
+      ],
+    };
+  },
   component: LashPage,
 });
 
@@ -100,7 +120,7 @@ function LashPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-plum text-primary-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:pb-24 lg:pt-36">
-          <Reveal>
+          <Reveal immediate>
             <p className="eyebrow text-lime">Lash studio</p>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               Wake up with <span className="italic text-lime">perfect lashes</span>
@@ -118,7 +138,7 @@ function LashPage() {
               </a>
             </div>
           </Reveal>
-          <Reveal delay={150}>
+          <Reveal immediate delay={150}>
             <div className="overflow-hidden rounded-4xl shadow-2xl shadow-charcoal/40">
               <img
                 src={lashHero}
@@ -137,6 +157,7 @@ function LashPage() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="services">
         <Reveal>
           <SectionHeading
+            id="services"
             eyebrow="The menu"
             title="Lash services & pricing"
             description="Prices are sample values — the real service menu is coming soon. Every appointment includes a patch-test-friendly consultation."
@@ -199,6 +220,7 @@ function LashPage() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
           <Reveal>
             <SectionHeading
+              id="appointment-heading"
               align="left"
               eyebrow="Appointments"
               title="Request your lash appointment"
@@ -377,6 +399,7 @@ function LashPage() {
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeading
+              id="aftercare"
               eyebrow="Keep them perfect"
               title="Lash aftercare"
               description="Sample aftercare guidance — the studio's real aftercare instructions can replace these."

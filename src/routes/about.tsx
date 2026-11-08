@@ -58,6 +58,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={120}>
             <SectionHeading
+              as="h1"
               align="left"
               eyebrow="About"
               title="The woman behind the rally"
@@ -110,7 +111,7 @@ function AboutPage() {
       {/* Values */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="values">
         <Reveal>
-          <SectionHeading eyebrow="What we stand for" title="Four things, one brand" />
+          <SectionHeading eyebrow="What we stand for" title="Four things, one brand" id="values" />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[

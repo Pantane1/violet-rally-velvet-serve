@@ -59,7 +59,7 @@ function Index() {
           aria-hidden="true"
         />
         <div className="relative mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:px-8 lg:pb-24 lg:pt-40">
-          <Reveal>
+          <Reveal immediate>
             <p className="eyebrow text-primary">Curated thrift · Lash studio</p>
             <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-charcoal sm:text-6xl lg:text-[4.4rem]">
               Your style. Your glow. <span className="italic text-primary">Your court.</span>
@@ -86,7 +86,7 @@ function Index() {
               {site.brand.supportingMessage}
             </p>
           </Reveal>
-          <Reveal delay={150}>
+          <Reveal immediate delay={150}>
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="overflow-hidden rounded-4xl border border-white/60 shadow-2xl shadow-lavender/40">
                 <img
@@ -113,6 +113,7 @@ function Index() {
       >
         <Reveal>
           <SectionHeading
+            id="featured-collection"
             eyebrow="The collection"
             title="Fresh fits, handpicked for you"
             description="Every piece is one-of-one and carefully selected — once it's gone, it's gone."
@@ -153,6 +154,7 @@ function Index() {
           </Reveal>
           <Reveal delay={120} className="order-1 lg:order-2">
             <SectionHeading
+              id="lash-preview"
               light
               align="left"
               eyebrow="Lash studio"
@@ -211,6 +213,7 @@ function Index() {
           </Reveal>
           <Reveal delay={120}>
             <SectionHeading
+              id="founder"
               align="left"
               eyebrow="Meet the founder"
               title="Built on confidence, style and a love of the game"
@@ -248,6 +251,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
           <Reveal>
             <SectionHeading
+              id="brand-story"
               align="left"
               eyebrow="Our story"
               title="Where the fitting room meets the baseline"

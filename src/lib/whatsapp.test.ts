@@ -5,13 +5,24 @@ describe("whatsapp message helpers", () => {
   it("product order message includes the product name and selected size", () => {
     const msg = whatsappMessages.productOrder("Satin Cloud Blouse", "M");
     expect(msg).toContain("Satin Cloud Blouse");
-    expect(msg).toContain("size M");
+    expect(msg).toContain("Size: M");
   });
 
   it("product order message works without a size", () => {
     const msg = whatsappMessages.productOrder("Satin Cloud Blouse");
     expect(msg).toContain("Satin Cloud Blouse");
-    expect(msg).not.toContain("size undefined");
+    expect(msg).not.toContain("Size:");
+  });
+
+  it("product order message appends price and product link when provided", () => {
+    const msg = whatsappMessages.productOrder(
+      "Satin Cloud Blouse",
+      "M",
+      1800,
+      "https://example.com/shop/satin-cloud-blouse",
+    );
+    expect(msg).toContain("Price:");
+    expect(msg).toContain("Link: https://example.com/shop/satin-cloud-blouse");
   });
 
   it("appointment request includes service, date, time and name", () => {

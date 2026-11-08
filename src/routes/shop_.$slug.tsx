@@ -58,10 +58,12 @@ export const Route = createFileRoute("/shop_/$slug")({
             offers: {
               "@type": "Offer",
               price: product.price,
-              priceCurrency: site.currency,
+              priceCurrency: "KES",
               availability,
               url: productUrl,
+              itemCondition: "https://schema.org/UsedCondition",
             },
+            seller: { "@type": "Organization", name: site.brand.name },
           }),
         },
       ],
@@ -97,7 +99,7 @@ function ProductDetailPage() {
 
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
         {/* Photos */}
-        <div>
+        <Reveal immediate>
           <div className="overflow-hidden rounded-4xl border border-border bg-secondary">
             <img
               src={activeImage}
@@ -134,7 +136,7 @@ function ProductDetailPage() {
               ))}
             </div>
           )}
-        </div>
+        </Reveal>
 
         {/* Details */}
         <div>
@@ -203,14 +205,24 @@ function ProductDetailPage() {
               <WhatsAppButton
                 variant="outline"
                 className="w-full sm:w-auto"
-                message={whatsappMessages.productOrder(product.name, size)}
+                message={whatsappMessages.productOrder(
+                  product.name,
+                  size,
+                  product.price,
+                  `${site.url}/shop/${product.slug}`,
+                )}
               >
                 Ask about this piece
               </WhatsAppButton>
             ) : (
               <WhatsAppButton
                 className="w-full sm:w-auto"
-                message={whatsappMessages.productOrder(product.name, size)}
+                message={whatsappMessages.productOrder(
+                  product.name,
+                  size,
+                  product.price,
+                  `${site.url}/shop/${product.slug}`,
+                )}
               >
                 Order on WhatsApp
               </WhatsAppButton>

@@ -15,7 +15,6 @@ export function ProductCard({ product }: { product: Product }) {
       to="/shop/$slug"
       params={{ slug: product.slug }}
       className="group block focus-visible:outline-none"
-      aria-label={`${product.name}, ${formatPrice(product.price)}`}
     >
       <div className="relative overflow-hidden rounded-3xl border border-border bg-secondary">
         <img

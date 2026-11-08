@@ -7,6 +7,8 @@ export function SectionHeading({
   align = "center",
   light = false,
   className,
+  id,
+  as: HeadingTag = "h2",
 }: {
   eyebrow?: string;
   title: string;
@@ -15,6 +17,10 @@ export function SectionHeading({
   /** Use on plum / dark backgrounds. */
   light?: boolean;
   className?: string;
+  /** ID applied to the heading element (for aria-labelledby references). */
+  id?: string;
+  /** Heading level to render. */
+  as?: "h1" | "h2" | "h3";
 }) {
   return (
     <div
@@ -25,14 +31,15 @@ export function SectionHeading({
       )}
     >
       {eyebrow && <p className={cn("eyebrow", light ? "text-lime" : "text-primary")}>{eyebrow}</p>}
-      <h2
+      <HeadingTag
+        id={id}
         className={cn(
           "mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl",
           light ? "text-primary-foreground" : "text-charcoal",
         )}
       >
         {title}
-      </h2>
+      </HeadingTag>
       {description && (
         <p
           className={cn(
