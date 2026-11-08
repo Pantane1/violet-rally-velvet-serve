@@ -10,7 +10,7 @@ branches are not maintained.
 If you discover a security vulnerability in Violet Rally / Set & Slay, please
 report it responsibly by email:
 
-- **pantane254@gmail.com**
+- **[pantane254@gmail.com](https://www.pantane.is-a.dev/contact)**
 
 Please include:
 
