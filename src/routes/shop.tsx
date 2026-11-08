@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { ChevronDown } from "lucide-react";
 import { site } from "@/config/site";
 import { productCategories, products, type ProductCategory } from "@/data/products";
 import heroEditorial from "@/assets/hero-editorial.jpg";
@@ -39,6 +40,7 @@ function ShopPage() {
   const [size, setSize] = useState("all");
   const [maxPrice, setMaxPrice] = useState(2000);
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const priceCap = Math.max(...products.map((p) => p.price));
   const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort();
@@ -83,81 +85,99 @@ function ShopPage() {
         className="sticky top-16 z-30 glass border-b border-border/70 py-4"
         aria-label="Product filters"
       >
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 sm:px-6 lg:px-8">
-          {/* Category chips */}
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Category">
-            <button
-              type="button"
-              onClick={() => setCategory("all")}
-              aria-pressed={category === "all"}
-              className={cn(
-                "rounded-full px-4 py-2 text-xs font-semibold transition-colors",
-                category === "all"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-charcoal hover:bg-accent",
-              )}
-            >
-              All
-            </button>
-            {productCategories.map((cat) => (
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((open) => !open)}
+            aria-expanded={filtersOpen}
+            aria-controls="shop-filters"
+            className="flex w-full items-center justify-between text-sm font-semibold text-charcoal lg:hidden"
+          >
+            <span>Filters</span>
+            <ChevronDown
+              className={`h-4 w-4 transition-transform ${filtersOpen ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
+          </button>
+          <div
+            id="shop-filters"
+            className={`mt-3 gap-3 ${filtersOpen ? "flex flex-wrap items-center" : "hidden"} lg:mt-0 lg:flex lg:flex-wrap lg:items-center`}
+          >
+            {/* Category chips */}
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Category">
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setCategory(cat.id)}
-                aria-pressed={category === cat.id}
+                onClick={() => setCategory("all")}
+                aria-pressed={category === "all"}
                 className={cn(
                   "rounded-full px-4 py-2 text-xs font-semibold transition-colors",
-                  category === cat.id
+                  category === "all"
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-charcoal hover:bg-accent",
                 )}
               >
-                {cat.label}
+                All
               </button>
-            ))}
-          </div>
+              {productCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setCategory(cat.id)}
+                  aria-pressed={category === cat.id}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-xs font-semibold transition-colors",
+                    category === cat.id
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-charcoal hover:bg-accent",
+                  )}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
 
-          <div className="ml-auto flex flex-wrap items-center gap-3">
-            <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              Size
-              <select
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-                className="rounded-full border border-input bg-card px-3 py-2 text-xs font-semibold text-charcoal"
-              >
-                <option value="all">All sizes</option>
-                {allSizes.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              Price
-              <input
-                type="range"
-                min={500}
-                max={priceCap}
-                step={50}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-28 accent-[var(--color-primary)]"
-                aria-label={`Maximum price, currently ${formatPrice(maxPrice)}`}
-              />
-              <span className="whitespace-nowrap font-semibold text-charcoal">
-                ≤ {formatPrice(maxPrice)}
-              </span>
-            </label>
-            <label className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-charcoal">
-              <input
-                type="checkbox"
-                checked={inStockOnly}
-                onChange={(e) => setInStockOnly(e.target.checked)}
-                className="h-4 w-4 rounded accent-[var(--color-primary)]"
-              />
-              Available only
-            </label>
+            <div className="ml-auto flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                Size
+                <select
+                  value={size}
+                  onChange={(e) => setSize(e.target.value)}
+                  className="rounded-full border border-input bg-card px-3 py-2 text-xs font-semibold text-charcoal"
+                >
+                  <option value="all">All sizes</option>
+                  {allSizes.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                Price
+                <input
+                  type="range"
+                  min={500}
+                  max={priceCap}
+                  step={50}
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-28 accent-[var(--color-primary)]"
+                  aria-label={`Maximum price, currently ${formatPrice(maxPrice)}`}
+                />
+                <span className="whitespace-nowrap font-semibold text-charcoal">
+                  ≤ {formatPrice(maxPrice)}
+                </span>
+              </label>
+              <label className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-charcoal">
+                <input
+                  type="checkbox"
+                  checked={inStockOnly}
+                  onChange={(e) => setInStockOnly(e.target.checked)}
+                  className="h-4 w-4 rounded accent-[var(--color-primary)]"
+                />
+                Available only
+              </label>
+            </div>
           </div>
         </div>
       </section>

@@ -38,7 +38,23 @@ export default defineConfig((env) => {
   // nitro produces the deployable worker on production builds (Cloudflare
   // module worker by default; NITRO_PRESET can override the target).
   if (env.command === "build") {
-    plugins.push(nitro({ preset: "vercel" }));
+    plugins.push(
+      nitro({
+        preset: "vercel",
+        routeRules: {
+          "/api/**": { isr: false },
+          "/**": {
+            isr: { expiration: 3600 },
+            headers: {
+              "x-content-type-options": "nosniff",
+              "referrer-policy": "strict-origin-when-cross-origin",
+              "permissions-policy": "camera=(), microphone=(), geolocation=()",
+              "x-frame-options": "DENY",
+            },
+          },
+        },
+      }),
+    );
   }
 
   plugins.push(react());
