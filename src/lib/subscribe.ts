@@ -16,13 +16,13 @@ export interface SubscribeResult {
  * - In production calls the Resend Contacts API.
  */
 export async function subscribeEmail(email: string): Promise<SubscribeResult> {
-  const trimmed = email.trim();
+  const trimmed = email.trim().slice(0, 254);
 
   if (!isValidEmail(trimmed)) {
     return { success: false, message: "Please enter a valid email address." };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env["RESEND_API_KEY"];
   if (!apiKey) {
     console.log(`[subscribe] dev mode: would subscribe ${trimmed}`);
     return { success: true, message: "Subscribed (dev mode)" };
@@ -30,12 +30,17 @@ export async function subscribeEmail(email: string): Promise<SubscribeResult> {
 
   try {
     const resend = new Resend(apiKey);
-    const audienceId = process.env.RESEND_AUDIENCE_ID;
-    await resend.contacts.create({
+    const audienceId = process.env["RESEND_AUDIENCE_ID"];
+    const { data, error } = await resend.contacts.create({
       email: trimmed,
       unsubscribed: false,
-      ...(audienceId ? { segmentId: [audienceId] } : {}),
+      ...(audienceId ? { segments: [{ id: audienceId }] } : {}),
     });
+
+    if (error) {
+      return { success: false, message: error.message || "Subscription failed. Please try again." };
+    }
+
     return { success: true, message: "You're on the list!" };
   } catch (error) {
     const message =

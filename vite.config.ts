@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { defineConfig, loadEnv, mergeConfig, type UserConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, mergeConfig, type UserConfig, type PluginOption } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -16,7 +16,7 @@ export default defineConfig((env) => {
     envDefine[`import.meta.env.${key}`] = JSON.stringify(value);
   }
 
-  const plugins: Plugin[] = [
+  const plugins: PluginOption[] = [
     tailwindcss(),
     tsconfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart({

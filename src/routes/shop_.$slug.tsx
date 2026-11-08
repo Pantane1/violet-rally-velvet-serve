@@ -10,7 +10,7 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/shop/$slug_")({
+export const Route = createFileRoute("/shop_/$slug")({
   loader: ({ params }) => {
     const product = findProductBySlug(params.slug);
     if (!product) throw notFound();
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/shop/$slug_")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: `Product unavailable — ${site.brand.name}` }] };
+      return { meta: [{ title: `Product unavailable â€” ${site.brand.name}` }] };
     }
     const { product } = loaderData;
     const productUrl = `${site.url}/shop/${product.slug}`;
@@ -29,15 +29,15 @@ export const Route = createFileRoute("/shop/$slug_")({
         : "https://schema.org/InStock";
     return {
       meta: [
-        { title: `${product.name} — ${site.brand.name}` },
+        { title: `${product.name} â€” ${site.brand.name}` },
         {
           name: "description",
-          content: `${product.name} — ${formatPrice(product.price)}. Curated, one-of-one thrifted fashion from ${site.brand.name}. Order on WhatsApp.`,
+          content: `${product.name} â€” ${formatPrice(product.price)}. Curated, one-of-one thrifted fashion from ${site.brand.name}. Order on WhatsApp.`,
         },
-        { property: "og:title", content: `${product.name} — ${site.brand.name}` },
+        { property: "og:title", content: `${product.name} â€” ${site.brand.name}` },
         {
           property: "og:description",
-          content: `${formatPrice(product.price)} · ${product.condition} · Sizes ${product.sizes.join(", ")}`,
+          content: `${formatPrice(product.price)} Â· ${product.condition} Â· Sizes ${product.sizes.join(", ")}`,
         },
         { property: "og:type", content: "product" },
         { name: "twitter:card", content: "summary_large_image" },
@@ -194,7 +194,7 @@ function ProductDetailPage() {
             <p className="mt-2 text-xs text-muted-foreground">
               {size
                 ? `Ordering in size ${size}.`
-                : "Optional — choose a size to include it in your WhatsApp order."}
+                : "Optional â€” choose a size to include it in your WhatsApp order."}
             </p>
           </div>
 
@@ -216,7 +216,7 @@ function ProductDetailPage() {
               </WhatsAppButton>
             )}
             <p className="mt-3 text-xs text-muted-foreground">
-              Opens WhatsApp with this piece and your size pre-filled — no account needed.
+              Opens WhatsApp with this piece and your size pre-filled â€” no account needed.
             </p>
           </div>
         </div>

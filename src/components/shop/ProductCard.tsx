@@ -12,7 +12,7 @@ const statusStyles = {
 export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
-      to="/shop/$slug_"
+      to="/shop/$slug"
       params={{ slug: product.slug }}
       className="group block focus-visible:outline-none"
       aria-label={`${product.name}, ${formatPrice(product.price)}`}

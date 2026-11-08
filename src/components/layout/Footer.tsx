@@ -13,13 +13,16 @@ export function Footer() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const company = String(formData.get("company") ?? "");
+
     setStatus("loading");
     setMessage("");
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, company }),
       });
       const data = (await response.json()) as { success?: boolean; message?: string };
       if (response.ok && data.success) {
@@ -85,6 +88,14 @@ export function Footer() {
                   </p>
                 )}
               </div>
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success" || !email.trim()}

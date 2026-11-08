@@ -15,7 +15,7 @@ import { Route as JournalRouteImport } from './routes/journal'
 import { Route as LashRouteImport } from './routes/lash'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ApiSubscribeRouteImport } from './routes/api/subscribe'
-import { Route as ShopSlugRouteImport } from './routes/shop.$slug_'
+import { Route as ShopSlugRouteImport } from './routes/shop_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -48,9 +48,9 @@ const ApiSubscribeRoute = ApiSubscribeRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopSlugRoute = ShopSlugRouteImport.update({
-  id: '/$slug_',
-  path: '/$slug',
-  getParentRoute: () => ShopRoute,
+  id: '/shop_/$slug',
+  path: '/shop/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -58,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
+  '/shop': typeof ShopRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/shop/$slug': typeof ShopSlugRoute
 }
@@ -67,7 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
+  '/shop': typeof ShopRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/shop/$slug': typeof ShopSlugRoute
 }
@@ -77,9 +77,9 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
-  '/shop': typeof ShopRouteWithChildren
+  '/shop': typeof ShopRoute
   '/api/subscribe': typeof ApiSubscribeRoute
-  '/shop/$slug_': typeof ShopSlugRoute
+  '/shop_/$slug': typeof ShopSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/lash'
     | '/shop'
     | '/api/subscribe'
-    | '/shop/$slug_'
+    | '/shop_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,8 +116,9 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   JournalRoute: typeof JournalRoute
   LashRoute: typeof LashRoute
-  ShopRoute: typeof ShopRouteWithChildren
+  ShopRoute: typeof ShopRoute
   ApiSubscribeRoute: typeof ApiSubscribeRoute
+  ShopSlugRoute: typeof ShopSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,33 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shop/$slug_': {
-      id: '/shop/$slug_'
-      path: '/$slug'
+    '/shop_/$slug': {
+      id: '/shop_/$slug'
+      path: '/shop/$slug'
       fullPath: '/shop/$slug'
       preLoaderRoute: typeof ShopSlugRouteImport
-      parentRoute: typeof ShopRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ShopRouteChildren {
-  ShopSlugRoute: typeof ShopSlugRoute
-}
-
-const ShopRouteChildren: ShopRouteChildren = {
-  ShopSlugRoute: ShopSlugRoute,
-}
-
-const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   JournalRoute: JournalRoute,
   LashRoute: LashRoute,
-  ShopRoute: ShopRouteWithChildren,
+  ShopRoute: ShopRoute,
   ApiSubscribeRoute: ApiSubscribeRoute,
+  ShopSlugRoute: ShopSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

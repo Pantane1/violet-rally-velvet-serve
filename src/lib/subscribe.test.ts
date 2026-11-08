@@ -38,13 +38,13 @@ describe("subscribeEmail", () => {
   beforeEach(() => {
     createMock.mockReset();
     (Resend as unknown as { mockClear: () => void }).mockClear();
-    delete process.env.RESEND_API_KEY;
-    delete process.env.RESEND_AUDIENCE_ID;
+    delete process.env["RESEND_API_KEY"];
+    delete process.env["RESEND_AUDIENCE_ID"];
   });
 
   afterEach(() => {
-    delete process.env.RESEND_API_KEY;
-    delete process.env.RESEND_AUDIENCE_ID;
+    delete process.env["RESEND_API_KEY"];
+    delete process.env["RESEND_AUDIENCE_ID"];
   });
 
   it("returns dev-mode success when no API key is set", async () => {
@@ -60,8 +60,8 @@ describe("subscribeEmail", () => {
   });
 
   it("calls Resend with the email when an API key is set", async () => {
-    process.env.RESEND_API_KEY = "re_test_key";
-    createMock.mockResolvedValue({});
+    process.env["RESEND_API_KEY"] = "re_test_key";
+    createMock.mockResolvedValue({ data: { id: "c_1" }, error: null });
 
     const result = await subscribeEmail("  jane@example.com  ");
 
@@ -71,25 +71,47 @@ describe("subscribeEmail", () => {
   });
 
   it("passes segmentId when RESEND_AUDIENCE_ID is set", async () => {
-    process.env.RESEND_API_KEY = "re_test_key";
-    process.env.RESEND_AUDIENCE_ID = "aud_123";
-    createMock.mockResolvedValue({});
+    process.env["RESEND_API_KEY"] = "re_test_key";
+    process.env["RESEND_AUDIENCE_ID"] = "aud_123";
+    createMock.mockResolvedValue({ data: { id: "c_1" }, error: null });
 
     await subscribeEmail("jane@example.com");
 
     expect(createMock).toHaveBeenCalledWith({
       email: "jane@example.com",
       unsubscribed: false,
-      segmentId: ["aud_123"],
+      segments: [{ id: "aud_123" }],
     });
   });
 
+  it("returns a failure when Resend responds with an error object", async () => {
+    process.env["RESEND_API_KEY"] = "re_test_key";
+    createMock.mockResolvedValue({ data: null, error: { message: "Contact already exists" } });
+
+    const result = await subscribeEmail("jane@example.com");
+
+    expect(result).toEqual({ success: false, message: "Contact already exists" });
+  });
+
   it("returns a failure message when Resend throws", async () => {
-    process.env.RESEND_API_KEY = "re_test_key";
+    process.env["RESEND_API_KEY"] = "re_test_key";
     createMock.mockRejectedValue(new Error("Resend is down"));
 
     const result = await subscribeEmail("jane@example.com");
 
     expect(result).toEqual({ success: false, message: "Resend is down" });
+  });
+
+  it("trims and caps the email to 254 characters", async () => {
+    process.env["RESEND_API_KEY"] = "re_test_key";
+    createMock.mockResolvedValue({ data: { id: "c_1" }, error: null });
+
+    const longEmail = "  " + "a".repeat(250) + "@b.com  ";
+    await subscribeEmail(longEmail);
+
+    const called = createMock.mock.calls[0]![0] as { email: string };
+    expect(called.email.length).toBe(254);
+    expect(called.email).not.toMatch(/^\s/);
+    expect(called.email).not.toMatch(/\s$/);
   });
 });
