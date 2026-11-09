@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 import { site } from "@/config/site";
-import { findProductBySlug, products, stockStatusLabels } from "@/data/products";
+import {
+  findProductBySlug,
+  products as fallbackProducts,
+  stockStatusLabels,
+} from "@/data/products";
+import { getProducts } from "@/lib/sanity";
 import { formatPrice } from "@/lib/format";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
@@ -11,10 +16,11 @@ import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/shop_/$slug")({
-  loader: ({ params }) => {
-    const product = findProductBySlug(params.slug);
+  loader: async ({ params }) => {
+    const products = await getProducts();
+    const product = products.find((p) => p.slug === params.slug) ?? findProductBySlug(params.slug);
     if (!product) throw notFound();
-    return { product };
+    return { product, products };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -73,7 +79,7 @@ export const Route = createFileRoute("/shop_/$slug")({
 });
 
 function ProductDetailPage() {
-  const { product } = Route.useLoaderData();
+  const { product, products } = Route.useLoaderData();
   const [size, setSize] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState(product.images[0]);
 

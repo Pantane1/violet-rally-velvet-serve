@@ -3,7 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, Clock, MapPin } from "lucide-react";
 import lashHero from "@/assets/lash-hero.jpg";
 import { site } from "@/config/site";
-import { aftercareSteps, lashServices } from "@/data/services";
+import {
+  aftercareSteps as fallbackAftercare,
+  lashServices as fallbackServices,
+} from "@/data/services";
+import { getServices, getAftercareSteps } from "@/lib/sanity";
 import { buildWhatsAppLink, whatsappMessages } from "@/lib/whatsapp";
 import { validateBookingForm, type BookingForm } from "@/lib/booking-form";
 import { ServiceCard } from "@/components/lash/ServiceCard";
@@ -13,7 +17,12 @@ import { Reveal } from "@/components/brand/Reveal";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/lash")({
-  head: () => {
+  loader: async () => {
+    const [services, aftercare] = await Promise.all([getServices(), getAftercareSteps()]);
+    return { services, aftercare };
+  },
+  head: ({ loaderData }) => {
+    const services = loaderData?.services ?? fallbackServices;
     const dayMap: Record<string, string[]> = {
       "Monday – Friday": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       "Monday - Friday": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -70,7 +79,7 @@ export const Route = createFileRoute("/lash")({
               addressLocality: site.contact.location.line2,
             },
             openingHoursSpecification,
-            priceRange: `${site.currency} ${Math.min(...lashServices.map((s) => s.price))}–${Math.max(...lashServices.map((s) => s.price))}`,
+            priceRange: `${site.currency} ${Math.min(...services.map((s) => s.price))}–${Math.max(...services.map((s) => s.price))}`,
           }),
         },
       ],
@@ -80,10 +89,11 @@ export const Route = createFileRoute("/lash")({
 });
 
 function LashPage() {
+  const { services, aftercare } = Route.useLoaderData();
   const [form, setForm] = useState<BookingForm>({
     name: "",
     phone: "",
-    service: lashServices[0]?.name ?? "",
+    service: services[0]?.name ?? "",
     date: "",
     time: "",
   });
@@ -164,7 +174,7 @@ function LashPage() {
           />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {lashServices.map((service, i) => (
+          {services.map((service, i) => (
             <Reveal key={service.id} delay={(i % 3) * 90}>
               <ServiceCard service={service} />
             </Reveal>
@@ -330,7 +340,7 @@ function LashPage() {
                       aria-invalid={!!errors.service}
                       className={cn(inputClass("service"), "mt-2")}
                     >
-                      {lashServices.map((s) => (
+                      {services.map((s) => (
                         <option key={s.id} value={s.name}>
                           {s.name}
                         </option>
@@ -405,7 +415,7 @@ function LashPage() {
               description="Sample aftercare guidance — the studio's real aftercare instructions can replace these."
             />
             <ol className="mt-10 space-y-4">
-              {aftercareSteps.map((step, i) => (
+              {aftercare.map((step, i) => (
                 <li
                   key={i}
                   className="flex items-start gap-4 rounded-3xl border border-border bg-card p-5"

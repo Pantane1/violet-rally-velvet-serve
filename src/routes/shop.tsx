@@ -2,7 +2,8 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { site } from "@/config/site";
-import { productCategories, products, type ProductCategory } from "@/data/products";
+import { productCategories, type ProductCategory } from "@/data/products";
+import { getProducts } from "@/lib/sanity";
 import heroEditorial from "@/assets/hero-editorial.jpg";
 import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/shop/ProductCard";
@@ -12,6 +13,7 @@ import { BallMark } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/shop")({
+  loader: async () => ({ products: await getProducts() }),
   head: () => ({
     meta: [
       { title: `Shop the Fits — ${site.brand.name}` },
@@ -36,14 +38,14 @@ export const Route = createFileRoute("/shop")({
 });
 
 function ShopPage() {
+  const { products } = Route.useLoaderData();
+  const priceCap = Math.max(...products.map((p) => p.price), 0);
+  const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort();
   const [category, setCategory] = useState<"all" | ProductCategory>("all");
   const [size, setSize] = useState("all");
-  const [maxPrice, setMaxPrice] = useState(2000);
+  const [maxPrice, setMaxPrice] = useState(priceCap);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
-
-  const priceCap = Math.max(...products.map((p) => p.price));
-  const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort();
 
   const filtered = products.filter(
     (p) =>
