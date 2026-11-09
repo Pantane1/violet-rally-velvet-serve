@@ -12,7 +12,9 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "studio": "npx sanity dev",
+    "studio:deploy": "npx sanity deploy"
   },
   "overrides": {
     "rolldown": "1.2.1"
