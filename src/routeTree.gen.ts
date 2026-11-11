@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as LashRouteImport } from './routes/lash'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ApiRevalidateRouteImport } from './routes/api/revalidate'
 import { Route as ApiSubscribeRouteImport } from './routes/api/subscribe'
 import { Route as ShopSlugRouteImport } from './routes/shop_.$slug'
 
@@ -42,6 +43,11 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRevalidateRoute = ApiRevalidateRouteImport.update({
+  id: '/api/revalidate',
+  path: '/api/revalidate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSubscribeRoute = ApiSubscribeRouteImport.update({
   id: '/api/subscribe',
   path: '/api/subscribe',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
   '/shop': typeof ShopRoute
+  '/api/revalidate': typeof ApiRevalidateRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/shop/$slug': typeof ShopSlugRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
   '/shop': typeof ShopRoute
+  '/api/revalidate': typeof ApiRevalidateRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/shop/$slug': typeof ShopSlugRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/journal': typeof JournalRoute
   '/lash': typeof LashRoute
   '/shop': typeof ShopRoute
+  '/api/revalidate': typeof ApiRevalidateRoute
   '/api/subscribe': typeof ApiSubscribeRoute
   '/shop_/$slug': typeof ShopSlugRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/lash'
     | '/shop'
+    | '/api/revalidate'
     | '/api/subscribe'
     | '/shop/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/lash'
     | '/shop'
+    | '/api/revalidate'
     | '/api/subscribe'
     | '/shop/$slug'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/lash'
     | '/shop'
+    | '/api/revalidate'
     | '/api/subscribe'
     | '/shop_/$slug'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   JournalRoute: typeof JournalRoute
   LashRoute: typeof LashRoute
   ShopRoute: typeof ShopRoute
+  ApiRevalidateRoute: typeof ApiRevalidateRoute
   ApiSubscribeRoute: typeof ApiSubscribeRoute
   ShopSlugRoute: typeof ShopSlugRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/revalidate': {
+      id: '/api/revalidate'
+      path: '/api/revalidate'
+      fullPath: '/api/revalidate'
+      preLoaderRoute: typeof ApiRevalidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/subscribe': {
       id: '/api/subscribe'
       path: '/api/subscribe'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   JournalRoute: JournalRoute,
   LashRoute: LashRoute,
   ShopRoute: ShopRoute,
+  ApiRevalidateRoute: ApiRevalidateRoute,
   ApiSubscribeRoute: ApiSubscribeRoute,
   ShopSlugRoute: ShopSlugRoute,
 }
