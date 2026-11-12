@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.violetrally.example/sitemap.xml
+Sitemap: https://v-v-s.vercel.app/sitemap.xml

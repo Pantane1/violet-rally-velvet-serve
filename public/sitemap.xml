@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- SAMPLE: replace https://www.violetrally.example with the real production URL -->
+<!-- SAMPLE: replace https://v-v-s.vercel.app with the real production URL -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.violetrally.example/</loc>
+    <loc>https://v-v-s.vercel.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop</loc>
+    <loc>https://v-v-s.vercel.app/shop</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/lavender-satin-blouse</loc>
+    <loc>https://v-v-s.vercel.app/shop/lavender-satin-blouse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/midnight-ribbed-crop-top</loc>
+    <loc>https://v-v-s.vercel.app/shop/midnight-ribbed-crop-top</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/oversized-white-shirt</loc>
+    <loc>https://v-v-s.vercel.app/shop/oversized-white-shirt</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/plum-fine-knit</loc>
+    <loc>https://v-v-s.vercel.app/shop/plum-fine-knit</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/bloom-print-blouse</loc>
+    <loc>https://v-v-s.vercel.app/shop/bloom-print-blouse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/plum-silk-cami</loc>
+    <loc>https://v-v-s.vercel.app/shop/plum-silk-cami</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/charcoal-cropped-tee</loc>
+    <loc>https://v-v-s.vercel.app/shop/charcoal-cropped-tee</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/shop/lilac-corset-top</loc>
+    <loc>https://v-v-s.vercel.app/shop/lilac-corset-top</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/lash</loc>
+    <loc>https://v-v-s.vercel.app/lash</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/about</loc>
+    <loc>https://v-v-s.vercel.app/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.violetrally.example/journal</loc>
+    <loc>https://v-v-s.vercel.app/journal</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
