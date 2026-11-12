@@ -1,10 +1,7 @@
 ﻿# Violet Rally / Set & Slay
 
-Premium fashion and beauty brand website — thrifted women's tops, lash services, and a tennis-inspired identity.
+**[Premium fashion and beauty brand website](https://v-v-s.vercel.app)** — thrifted women's tops, lash services, and a tennis-inspired identity.
 
-Production site: https://v-v-s.vercel.app
-Sanity Studio: https://violet-rally.sanity.studio/
-Repository: https://github.com/Pantane1/violet-rally-velvet-serve
 
 ## Overview
 
@@ -83,4 +80,4 @@ updates go live automatically via ISR revalidation.
 
 ## License
 
-Proprietary - All Rights Reserved. See `LICENSE`.
+Proprietary - All Rights Reserved. See [LICENSE](https://github.com/Pantane1/violet-rally-velvet-serve/blob/main/LICENSE).
