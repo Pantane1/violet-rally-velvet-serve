@@ -24,6 +24,12 @@ export function urlFor(source: unknown): string | null {
   }
 }
 
+export function sanitySrcSet(url: string | undefined): string | undefined {
+  if (!url || !url.includes("cdn.sanity.io")) return undefined;
+  const widths = [400, 800, 1024, 1280];
+  return widths.map((w) => `${url.replace(/([?&])w=\\d+/, "$1w=" + w)} ${w}w`).join(", ");
+}
+
 interface SanityProduct {
   _id: string;
   name: string;
@@ -34,7 +40,7 @@ interface SanityProduct {
   sizes?: string[];
   condition?: string;
   status?: Product["status"];
-  images?: string[];
+  images?: unknown[];
   featured?: boolean;
 }
 
@@ -51,7 +57,7 @@ export async function getProducts(): Promise<Product[]> {
       sizes,
       condition,
       status,
-      "images": images[].asset->url,
+      images,
       featured
     }`;
     const result = (await sanityClient.fetch(query)) as SanityProduct[];
@@ -66,7 +72,23 @@ export async function getProducts(): Promise<Product[]> {
       sizes: Array.isArray(item.sizes) ? item.sizes : [],
       condition: item.condition || "Good",
       status: item.status || "in-stock",
-      images: Array.isArray(item.images) && item.images.length > 0 ? item.images : [],
+      images: Array.isArray(item.images)
+        ? item.images
+            .map((img) => {
+              if (!builder) return "";
+              try {
+                return builder
+                  .image(img as Parameters<typeof builder.image>[0])
+                  .auto("format")
+                  .quality(80)
+                  .width(1024)
+                  .url();
+              } catch {
+                return "";
+              }
+            })
+            .filter((u): u is string => Boolean(u))
+        : [],
       featured: Boolean(item.featured),
     }));
   } catch (error) {

@@ -7,7 +7,7 @@ import {
   products as fallbackProducts,
   stockStatusLabels,
 } from "@/data/products";
-import { getProducts } from "@/lib/sanity";
+import { getProducts, sanitySrcSet } from "@/lib/sanity";
 import { formatPrice } from "@/lib/format";
 import { whatsappMessages } from "@/lib/whatsapp";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
@@ -109,10 +109,13 @@ function ProductDetailPage() {
           <div className="overflow-hidden rounded-4xl border border-border bg-secondary">
             <img
               src={activeImage}
+              srcSet={sanitySrcSet(activeImage)}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               alt={product.name}
               width={1024}
               height={1280}
               fetchPriority="high"
+              decoding="async"
               className="aspect-[4/5] w-full object-cover"
             />
           </div>

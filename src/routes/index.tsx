@@ -95,6 +95,7 @@ function Index() {
                   width={1024}
                   height={1280}
                   fetchPriority="high"
+                  decoding="async"
                   className="aspect-[4/5] w-full object-cover"
                 />
               </div>

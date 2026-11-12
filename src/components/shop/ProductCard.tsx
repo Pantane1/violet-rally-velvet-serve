@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { formatPrice } from "@/lib/format";
 import { stockStatusLabels, type Product } from "@/data/products";
+import { sanitySrcSet } from "@/lib/sanity";
 import { cn } from "@/lib/utils";
 
 const statusStyles = {
@@ -19,10 +20,13 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="relative overflow-hidden rounded-3xl border border-border bg-secondary">
         <img
           src={product.images[0]}
+          srcSet={sanitySrcSet(product.images[0])}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           alt={product.name}
           width={1024}
           height={1280}
           loading="lazy"
+          decoding="async"
           className="aspect-[4/5] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
         <span

@@ -122,5 +122,22 @@ export default defineConfig((env) => {
     },
   });
 
+  if (env.command === "build") {
+    config = mergeConfig(config, {
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: (id: string) => {
+              if (id.includes("node_modules/react") || id.includes("node_modules/react-dom"))
+                return "react-vendor";
+              if (id.includes("@tanstack")) return "router-vendor";
+              return undefined;
+            },
+          },
+        },
+      },
+    });
+  }
+
   return config;
 });
